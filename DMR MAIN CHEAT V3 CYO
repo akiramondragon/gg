@@ -254,7 +254,7 @@ end,
 })
 
 local Button = MAINTab:CreateButton({
-Name = "TOUCH FLING [50K]",
+Name = "TOUCH FLING [DMR]",
 Callback = function()
 loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Touch-Fling-46156"))()
 end,
@@ -605,7 +605,7 @@ end
 })
 
 local CYOTab = Window:CreateTab("DMR MAIN CHEAT", "Settings")
-local CYOSection = ACETab:CreateSection("DMR CHEAT")
+local CYOSection = CYOTab:CreateSection("DMR CHEAT")
 
 local Button =  CYOTab:CreateButton({
 Name = "1688 V2 [DMR]",
