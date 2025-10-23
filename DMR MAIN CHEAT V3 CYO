@@ -1,0 +1,682 @@
+local player = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui")
+gui.Name = "DmrKeySystem"
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local sound = Instance.new("Sound")
+sound.SoundId = "rbxassetid://17208361335"
+sound.Volume = 1
+sound.Parent = gui
+sound:Play()
+
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0,400,0,200)
+frame.Position = UDim2.new(0.5,-200,0.5,-110)
+frame.BackgroundColor3 = Color3.fromRGB(20,20,20)
+frame.BorderSizePixel = 0
+frame.BackgroundTransparency = 0.1
+frame.Parent = gui
+Instance.new("UICorner",frame).CornerRadius = UDim.new(0,10)
+
+local skullBg = Instance.new("ImageLabel")
+skullBg.Size = UDim2.new(1,0,1,0)
+skullBg.BackgroundTransparency = 1
+skullBg.Image = "rbxassetid://131358318632193"
+skullBg.ScaleType = Enum.ScaleType.Crop
+skullBg.ZIndex = 0
+skullBg.Parent = frame
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1,-20,0,40)
+title.Position = UDim2.new(0,10,0,10)
+title.BackgroundTransparency = 1
+title.Text = "DMR MAIN CHEAT"
+title.Font = Enum.Font.GothamBold
+title.TextSize = 22
+title.TextColor3 = Color3.fromRGB(255,255,255)
+title.TextXAlignment = Enum.TextXAlignment.Left
+title.ZIndex = 1
+title.Parent = frame
+
+local sub = Instance.new("TextLabel")
+sub.Size = UDim2.new(1,-20,0,20)
+sub.Position = UDim2.new(0,10,0,45)
+sub.BackgroundTransparency = 1
+sub.Text = "KEY SYSTEM"
+sub.Font = Enum.Font.Gotham
+sub.TextSize = 16
+sub.TextColor3 = Color3.fromRGB(200,200,200)
+sub.TextXAlignment = Enum.TextXAlignment.Left
+sub.ZIndex = 1
+sub.Parent = frame
+
+local keyBox = Instance.new("TextBox")
+keyBox.Size = UDim2.new(0.9,0,0,40)
+keyBox.Position = UDim2.new(0.05,0,0.45,-20)
+keyBox.BackgroundColor3 = Color3.fromRGB(30,30,30)
+keyBox.TextColor3 = Color3.fromRGB(255,255,255)
+keyBox.PlaceholderText = "Enter key here..."
+keyBox.Font = Enum.Font.Gotham
+keyBox.TextSize = 16
+keyBox.ZIndex = 1
+keyBox.Parent = frame
+Instance.new("UICorner", keyBox).CornerRadius = UDim.new(0,6)
+
+local errorLabel = Instance.new("TextLabel")
+errorLabel.Size = UDim2.new(1,0,0,20)
+errorLabel.Position = UDim2.new(0,0,0.62,0)
+errorLabel.BackgroundTransparency = 1
+errorLabel.Text = ""
+errorLabel.Font = Enum.Font.Gotham
+errorLabel.TextSize = 14
+errorLabel.TextColor3 = Color3.fromRGB(255,70,70)
+errorLabel.ZIndex = 1
+errorLabel.Parent = frame
+
+local btn = Instance.new("TextButton")
+btn.Size = UDim2.new(0.9,0,0,40)
+btn.Position = UDim2.new(0.05,0,0.85,-20)
+btn.BackgroundColor3 = Color3.fromRGB(40,40,40)
+btn.Text = "ENTER KEY"
+btn.TextColor3 = Color3.fromRGB(255,255,255)
+btn.Font = Enum.Font.GothamBold
+btn.TextSize = 18
+btn.ZIndex = 1
+btn.Parent = frame
+Instance.new("UICorner", btn).CornerRadius = UDim.new(0,6)
+
+local CorrectKey = "CYO-DMRCYO-DMR-DMRTZ898-TFGH78"
+
+btn.MouseButton1Click:Connect(function()
+	if keyBox.Text == CorrectKey then
+		gui:Destroy()
+
+        
+        local TweenService = game:GetService("TweenService")
+        local introGui = Instance.new("ScreenGui")
+        introGui.Name = "IntroLogo"
+        introGui.IgnoreGuiInset = true
+        introGui.ResetOnSpawn = false
+        introGui.Parent = player:WaitForChild("PlayerGui")
+
+        local logo = Instance.new("ImageLabel")
+        logo.AnchorPoint = Vector2.new(0.5,0.5)
+        logo.Position = UDim2.new(0.5,0,0.5,0)
+        logo.Size = UDim2.new(0.6,0,0.6,0)
+        logo.BackgroundTransparency = 1
+        logo.Image = "rbxassetid://131358318632193"
+        logo.ImageTransparency = 1
+        logo.Parent = introGui
+
+        -- Fade In
+        TweenService:Create(logo, TweenInfo.new(1), {ImageTransparency = 0}):Play()
+        task.wait(5)
+
+        -- Fade Out
+        local fadeOut = TweenService:Create(logo, TweenInfo.new(1), {ImageTransparency = 1})
+        fadeOut:Play()
+        fadeOut.Completed:Connect(function()
+            introGui:Destroy()
+
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+Name = "DMR MAIN CHEAT",
+Icon = nil,
+LoadingTitle = "DMR MAIN CHEAT...",
+LoadingSubtitle = "LOADER CYO...",
+ShowText = "DMR UI",
+
+Theme = {
+TextColor = Color3.fromRGB(255, 255, 255),
+
+Background = Color3.fromRGB(0, 0, 0),  
+  Topbar = Color3.fromRGB(10, 10, 10),  
+  Shadow = Color3.fromRGB(8, 8, 10),  
+
+  NotificationBackground = Color3.fromRGB(25, 25, 30),  
+  NotificationActionsBackground = Color3.fromRGB(35, 35, 40),  
+
+
+TabBackground = Color3.fromRGB(65, 65, 65),              
+  TabStroke = Color3.fromRGB(65, 65, 65),  
+  TabBackgroundSelected = Color3.fromRGB(65, 65, 65),  
+  TabTextColor = Color3.fromRGB(200, 200, 200),  
+  SelectedTabTextColor = Color3.fromRGB(255, 255, 255),  
+
+  ElementBackground = Color3.fromRGB(25, 25, 30),  
+ElementBackgroundHover = Color3.fromRGB(35, 35, 45),
+  SecondaryElementBackground = Color3.fromRGB(20, 20, 25),  
+  ElementStroke = Color3.fromRGB(40, 40, 50),  
+  SecondaryElementStroke = Color3.fromRGB(30, 30, 35),  
+       
+  SliderBackground = Color3.fromRGB(0, 90, 160),  
+  SliderProgress = Color3.fromRGB(0, 162, 255),  
+  SliderStroke = Color3.fromRGB(0, 200, 255),  
+
+  ToggleBackground = Color3.fromRGB(30, 30, 35),  
+  ToggleEnabled = Color3.fromRGB(0, 162, 255),  
+  ToggleDisabled = Color3.fromRGB(80, 80, 80),  
+  ToggleEnabledStroke = Color3.fromRGB(0, 200, 255),  
+  ToggleDisabledStroke = Color3.fromRGB(65, 65, 65),  
+  ToggleEnabledOuterStroke = Color3.fromRGB(100, 200, 255),  
+  ToggleDisabledOuterStroke = Color3.fromRGB(45, 45, 45),  
+
+  DropdownSelected = Color3.fromRGB(35, 35, 40),  
+  DropdownUnselected = Color3.fromRGB(25, 25, 30),  
+
+  InputBackground = Color3.fromRGB(25, 25, 30),  
+  InputStroke = Color3.fromRGB(65, 65, 70),  
+  PlaceholderColor = Color3.fromRGB(160, 160, 160)
+
+},
+
+ToggleUIKeybind = "K",
+DisableRayfieldPrompts = true,
+DisableBuildWarnings = true,
+
+ConfigurationSaving = {
+Enabled = true,
+FolderName = nil,
+FileName = "DMR-MAIN"
+},
+
+Discord = {
+Enabled = false,
+Invite = "",
+RememberJoins = false
+},
+
+KeySystem = false,
+KeySettings = {
+Title = "LUHOD SA GODZ!!",
+Subtitle = "DMR ON TOP BABY",
+Note = "DMR ON TOP NIGGA",
+FileName = "DMR",
+SaveKey = false,
+GrabKeyFromSite = false,
+Key = ""
+}
+})
+local MAINTab = Window:CreateTab("MAIN SCRIPT", "Rewind")
+local MAINSection = MAINTab:CreateSection("DMR FEATURES")
+
+Rayfield:Notify({
+Title = "CYO",
+Content = "CYO TO GAGO",
+Duration = 2.5,
+Image = nil,
+})
+
+local Button = MAINTab:CreateButton({
+Name = "INFINITE YIELD [DMR]",
+Callback = function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+end
+})
+
+local Button = MAINTab:CreateButton({
+Name = "MUSIC EXPO [DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-FE-Ac6-Music-Vulnerability-25536"))()
+end,
+})
+
+local Button = MAINTab:CreateButton({
+Name = "BIG HEAD [DMR]",
+Callback = function()
+_G.HeadSize = 4 _G.Disabled = true game:GetService('RunService').RenderStepped:connect(function() if _G.Disabled then for i,v in next, game:GetService('Players'):GetPlayers() do if v.Name ~= game:GetService('Players').LocalPlayer.Name then pcall(function() v.Character.Head.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize) v.Character.Head.Transparency = 0.4 v.Character.Head.BrickColor = BrickColor.new("Red") v.Character.Head.Material = "Neon" v.Character.Head.CanCollide = false v.Character.Head.Massless = true end) end end end end)
+end,
+})
+
+local Button = MAINTab:CreateButton({
+Name = "FADED MENU [DMR]",
+Callback = function()
+_G.Toggles = "Y" -- You can put any keybind
+loadstring(game:HttpGet("https://raw.githubusercontent.com/NighterEpic/Faded-Grid/main/YesEpic", true))()
+end,
+})
+
+local Button = MAINTab:CreateButton({
+Name = "BRING PARTS V1[DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Bac0nHck/Scripts/main/BringFlingPlayers"))("More Scripts: t.me/arceusxscripts")
+end,
+})
+
+local Button = MAINTab:CreateButton({
+Name = "BRING PARTS V2[DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/GoofyBlox/GoofyZ/refs/heads/main/Best/Vortex.lua", true))()
+end,
+})
+
+local Button = MAINTab:CreateButton({
+Name = "TOUCH FLING [50K]",
+Callback = function()
+loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Touch-Fling-46156"))()
+end,
+})
+
+local Button = MAINTab:CreateButton({
+Name = "HITBOX EXPANDER [DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ezsee/Hitbox-Expander123/refs/heads/main/waaaaaat"))()
+end,
+})
+
+local Button = MAINTab:CreateButton({
+Name = "FLING ALL [DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/zqyDSUWX"))()
+end,
+})
+
+local Button = MAINTab:CreateButton({
+    Name = "ESP [DMR]",
+    Callback = function()
+      -- ====== SERVICES ======
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+local Camera = workspace.CurrentCamera
+
+-- ====== SETTINGS ======
+local espColor = Color3.fromRGB(0, 255, 0) -- green
+local boxThickness = 2
+local nameSize = 18
+local boxPadding = 5
+
+-- ====== FUNCTIONS ======
+local function createESP(player)
+    if player == LocalPlayer then return end
+
+    local character = player.Character or player.CharacterAdded:Wait()
+    local hrp = character:WaitForChild("HumanoidRootPart")
+
+    local box = Drawing.new("Square")
+    box.Visible = true
+    box.Color = espColor
+    box.Thickness = boxThickness
+    box.Filled = false
+
+    local nameLabel = Drawing.new("Text")
+    nameLabel.Visible = true
+    nameLabel.Color = espColor
+    nameLabel.Center = true
+    nameLabel.Size = nameSize
+    nameLabel.Font = 2
+    nameLabel.Text = player.Name
+
+    RunService.RenderStepped:Connect(function()
+        if character and hrp then
+            local pos, onScreen = Camera:WorldToViewportPoint(hrp.Position)
+            if onScreen then
+                local size = Vector2.new(50, 50)
+                box.Position = Vector2.new(pos.X - size.X/2, pos.Y - size.Y/2)
+                box.Size = size
+                box.Visible = true
+
+                nameLabel.Position = Vector2.new(pos.X, pos.Y - size.Y/2 - 15)
+                nameLabel.Visible = true
+            else
+                box.Visible = false
+                nameLabel.Visible = false
+            end
+        else
+            box.Visible = false
+            nameLabel.Visible = false
+        end
+    end)
+end
+
+-- ====== APPLY ESP ======
+for _, player in pairs(Players:GetPlayers()) do
+    createESP(player)
+    player.CharacterAdded:Connect(function()
+        createESP(player)
+    end)
+end
+
+Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function()
+        createESP(player)
+    end)
+end)  
+    end,
+})
+
+local Button = MAINTab:CreateButton({
+Name = "WICKED [DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/GY1wfJRZ"))()
+end,
+})
+
+local Button = MAINTab:CreateButton({
+Name = "Buhay Sa Cliv [DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/a409ysyR"))()
+end,
+})
+
+local SPAWNGUNTab = Window:CreateTab("DMR DUPE CHEAT", "Package")
+local SPAWNGUNSection = SPAWNGUNTab:CreateSection("SPAWN GUN")
+
+local Button = SPAWNGUNTab:CreateButton({
+Name = "GUN SHOP [DMR]",
+Callback = function()
+      loadstring(game:HttpGet("https://pastebin.com/raw/gVBQdpb8"))()
+   end,
+})
+
+local Button = SPAWNGUNTab:CreateButton({
+Name = "BM STORAGE [DMR]",
+Callback = function()
+      loadstring(game:HttpGet("https://pastebin.com/raw/Yat5Xq4E"))()
+end,
+})
+
+local Button = SPAWNGUNTab:CreateButton({
+Name = "NEXOPOLIS [DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/cAhifpbE"))()
+end,
+})
+
+local Button = SPAWNGUNTab:CreateButton({
+Name = "KALYE ONSE [DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/A8nN0x18"))()
+end,
+})
+
+local Button = SPAWNGUNTab:CreateButton({
+Name = "PARAISO [DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/HXqG9Gaq"))()
+end,
+})
+
+local Button = SPAWNGUNTab:CreateButton({
+Name = "PURCHASE WEAPON [DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/uRF2d6Z4"))()
+end,
+})
+
+local Button = SPAWNGUNTab:CreateButton({
+Name = "DUPE PANEL DMR [DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/QtAHrCE4"))()
+end,
+})
+
+local Button = SPAWNGUNTab:CreateButton({
+Name = "Bagong Baryo [DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/iUenN9MR"))()
+end,
+})
+
+local Button = SPAWNGUNTab:CreateButton({
+Name = "DUPE PANEL DMR [DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/QtAHrCE4"))()
+end,
+})
+
+local Button = SPAWNGUNTab:CreateButton({
+Name = "AUTO JOB BOX [DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/kw2Y1YfC"))()
+end,
+})
+
+-- FPS Booster Button (Rayfield example)
+
+local Button = MAINTab:CreateButton({
+Name = "BOOST FPS [DMR]",
+Callback = function()
+_G.Ignore = {}
+_G.Settings = {
+Players = {
+["Ignore Me"] = true,
+["Ignore Others"] = true,
+["Ignore Tools"] = true
+},
+Meshes = {
+NoMesh = false,
+NoTexture = false,
+Destroy = false
+},
+Images = {
+Invisible = true,
+Destroy = false
+},
+Explosions = {
+Smaller = true,
+Invisible = false, -- Not for PVP games
+Destroy = false -- Not for PVP games
+},
+Particles = {
+Invisible = true,
+Destroy = false
+},
+TextLabels = {
+LowerQuality = true,
+Invisible = false,
+Destroy = false
+},
+MeshParts = {
+LowerQuality = true,
+Invisible = false,
+NoTexture = false,
+NoMesh = false,
+Destroy = false
+},
+Other = {
+["FPS Cap"] = 240, -- true to uncap
+["No Camera Effects"] = true,
+["No Clothes"] = true,
+["Low Water Graphics"] = true,
+["No Shadows"] = true,
+["Low Rendering"] = true,
+["Low Quality Parts"] = true,
+["Low Quality Models"] = true,
+["Reset Materials"] = true,
+}
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord.gg-rips/main/FPSBooster.lua"))()
+end
+})
+
+local Button = MAINTab:CreateButton({
+Name = "DEX EXPLORER [DMR]",
+Callback = function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/MassiveHubs/loadstring/refs/heads/main/DexXenoAndRezware'))()
+end
+})
+
+local Button = MAINTab:CreateButton({
+Name = "AIMBOT PC [DMR]",
+Callback = function()
+local Aimbot = loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/Aimbot-V3/main/src/Aimbot.lua"))()
+Aimbot.Load()
+end
+})
+
+local Button = MAINTab:CreateButton({
+Name = "FANTASMA AIMBOT PC[DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/usbkillerx/EZhacker/refs/heads/main/EZhack"))()
+end
+})
+
+local Button = MAINTab:CreateButton({
+Name = "LOOPBRING ALL [NOT MENU] [DMR]",
+Callback = function()
+local L1 = true;
+local L2 = game.Players.LocalPlayer.Character.HumanoidRootPart;
+local L3 = L2.Position - Vector3.new(5, 0, 0)
+
+game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(L_4_arg1)
+    if L_4_arg1 == 'f' then
+        L1 = not L1
+    end;
+    if L_4_arg1 == 'r' then
+        L2 = game.Players.LocalPlayer.Character.HumanoidRootPart;
+        L3 = L2.Position - Vector3.new(5, 0, 0)
+    end
+end)
+
+for L_5_forvar1, L_6_forvar2 in pairs(game.Players:GetPlayers()) do
+    if L_6_forvar2 == game.Players.LocalPlayer then
+    else
+        local L7 = coroutine.create(function()
+            game:GetService('RunService').RenderStepped:Connect(function()
+                local L8, L9 = pcall(function()
+                    local L10 = L_6_forvar2.Character;
+                    if L10 then
+                        if L10:FindFirstChild("HumanoidRootPart") then
+                            if L1 then
+                                L_6_forvar2.Backpack:ClearAllChildren()
+                                for L_11_forvar1, L_12_forvar2 in pairs(L10:GetChildren()) do
+                                    if L_12_forvar2:IsA("Tool") then
+                                        L_12_forvar2:Destroy()
+                                    end
+                                end;
+                                L10.HumanoidRootPart.CFrame = CFrame.new(L3)
+                            end
+                        end
+                    end
+                end)
+                if L8 then
+                else
+                    warn("Unnormal error: "..L9)
+                end
+            end)
+        end)
+        coroutine.resume(L7)
+    end
+end;
+-- check for updates
+game.Players.PlayerAdded:Connect(function(L_13_arg1)
+    if L_13_arg1 == game.Players.LocalPlayer then
+    else
+        local L14 = coroutine.create(function()
+            game:GetService('RunService').RenderStepped:Connect(function()
+                local L15, L16 = pcall(function()
+                    local L17 = L_13_arg1.Character;
+                    if L17 then
+                        if L17:FindFirstChild("HumanoidRootPart") then
+                            if L1 then
+                                L_13_arg1.Backpack:ClearAllChildren()
+                                for L_18_forvar1, L_19_forvar2 in pairs(L17:GetChildren()) do
+                                    if L_19_forvar2:IsA("Tool") then
+                                        L_19_forvar2:Destroy()
+                                    end
+                                end;
+                                L17.HumanoidRootPart.CFrame = CFrame.new(L3)
+                            end
+                        end
+                    end
+                end)
+                if L15 then
+                else
+                    warn("Unnormal error: "..L16)
+                end
+            end)
+        end)
+        coroutine.resume(L14)
+    end
+end)
+end
+})
+
+
+local Button = MAINTab:CreateButton({
+Name = "REMOTE SPY [DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
+end
+})
+
+local CYOTab = Window:CreateTab("DMR MAIN CHEAT", "Settings")
+local CYOSection = ACETab:CreateSection("DMR CHEAT")
+
+local Button =  CYOTab:CreateButton({
+Name = "1688 V2 [DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/xTH52yZm"))()
+end
+})
+
+local Button =  CYOTab:CreateButton({
+Name = "1688 V3 [DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/79jgH6nf"))()
+end
+})
+
+local Button =  CYOTab:CreateButton({
+Name = "Taong Goma V5 [DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/NjdKUD2G"))()
+end
+})
+
+local Button =  CYOTab:CreateButton({
+Name = "Berserk V1 [DMR]",
+Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/BlackSource-a11y/Code/refs/heads/main/Mize"))()
+end
+})
+        end)
+	else
+		errorLabel.Text = "❌Wrong key!"
+		task.wait(2)
+		errorLabel.Text = ""
+	end
+end)
+
+local UserInputService = game:GetService("UserInputService")
+local dragging, dragInput, dragStart, startPos
+
+local function update(input)
+	local delta = input.Position - dragStart
+	frame.Position = UDim2.new(
+		startPos.X.Scale,
+		startPos.X.Offset + delta.X,
+		startPos.Y.Scale,
+		startPos.Y.Offset + delta.Y
+	)
+end
+
+frame.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = true
+		dragStart = input.Position
+		startPos = frame.Position
+
+		input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				dragging = false
+			end
+		end)
+	end
+end)
+
+frame.InputChanged:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+		dragInput = input
+	end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if input == dragInput and dragging then
+		update(input)
+	end
+end)
