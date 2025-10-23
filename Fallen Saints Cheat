@@ -1,0 +1,1998 @@
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+
+local PlayerGui = player:WaitForChild("PlayerGui")
+
+local pastebinRaw = "https://pastebin.com/raw/aDihkJwe"
+
+ 
+
+-- Fetch key from Pastebin (retry 5x for stability)
+
+local function fetchKey()
+
+    local success, result = pcall(function()
+
+        return game:HttpGet(pastebinRaw)
+
+    end)
+
+    if success and result and #result > 0 then
+
+        return result:match("^%s*(.-)%s*$")
+
+    end
+
+    return nil
+
+end
+
+local currentKey = nil
+
+for i=1, 5 do
+
+    currentKey = fetchKey()    if currentKey then break end
+
+    wait(0.5)
+
+end
+
+if not currentKey then
+
+    pcall(function()
+
+        game.StarterGui:SetCore("SendNotification", {Title="KEY ERROR", Text="Hindi ma-load key. Check Pastebin.", Duration=6})
+
+    end)
+
+    error("Hindi ma-load ang key mula sa Key system: " .. pastebinRaw)
+
+end
+
+if PlayerGui:FindFirstChild("KEYUI") then
+
+    PlayerGui.KEYUI:Destroy()
+
+end
+
+ 
+
+--==[ DRAGGABLE FUNCTION ]==--
+
+local function makeDraggable(frame)
+
+    local UIS = game:GetService("UserInputService")
+
+    local dragging, dragInput, dragStart, startPos
+
+    frame.Active = true
+
+    frame.Draggable = false
+
+    frame.InputBegan:Connect(function(input)
+
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+
+            dragging = true
+
+            dragStart = input.Position
+
+            startPos = frame.Position
+
+            input.Changed:Connect(function()
+
+                if input.UserInputState == Enum.UserInputState.End then
+
+                    dragging = false
+
+                end
+
+            end)
+
+        end
+
+    end)
+
+    frame.InputChanged:Connect(function(input)
+
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+
+            dragInput = input
+
+        end
+
+    end)
+
+    UIS.InputChanged:Connect(function(input)
+
+        if input == dragInput and dragging then
+
+            local delta = input.Position - dragStart
+
+            frame.Position = UDim2.new(
+
+                startPos.X.Scale, startPos.X.Offset + delta.X,
+
+                startPos.Y.Scale, startPos.Y.Offset + delta.Y
+
+            )
+
+        end
+
+    end)
+
+end
+
+ 
+
+--==[ KEY GUI ]==--
+
+local ScreenGui = Instance.new("ScreenGui")
+
+ScreenGui.Name = "KEYUI"
+
+ScreenGui.Parent = PlayerGui
+
+local Frame = Instance.new("Frame")
+
+Frame.Size = UDim2.new(0, 320, 0, 165)
+
+Frame.Position = UDim2.new(0.5, -160, 0.5, -80)
+
+Frame.BackgroundTransparency = 1
+
+Frame.Active = true
+
+Frame.Selectable = true
+
+Frame.Parent = ScreenGui
+
+ 
+
+-- Background Image
+
+local bgImage= Instance.new("ImageLabel")
+
+bgImage.Size = UDim2.new(1, 0, 1, 0)
+
+bgImage.Position = UDim2.new(0, 0, 0, 0)
+
+bgImage.Image = "rbxassetid://99652567564327"
+
+bgImage.BackgroundTransparency = 1
+
+bgImage.ZIndex = 0
+
+bgImage.Parent = Frame
+
+local Label = Instance.new("TextLabel", Frame)
+
+Label.Size = UDim2.new(1, 0, 0, 36)
+
+Label.BackgroundTransparency = 1
+
+Label.Text = "FALLEN SAINTS MAINCHEAT"
+
+Label.Font = Enum.Font.GothamBold
+
+Label.TextSize = 25
+
+Label.TextColor3 = Color3.fromRGB(255, 255, 0)
+
+ 
+
+local KeyBox = Instance.new("TextBox", Frame)
+
+KeyBox.Size = UDim2.new(0.9, 0, 0, 36)
+
+KeyBox.Position = UDim2.new(0.05, 0, 0, 45)
+
+KeyBox.PlaceholderText = "INPUT KEY..."
+
+KeyBox.Font = Enum.Font.Gotham
+
+KeyBox.TextSize = 18
+
+KeyBox.Text = ""
+
+KeyBox.TextColor3 = Color3.fromRGB(0,255,140)
+
+KeyBox.BackgroundColor3 = Color3.fromRGB(10,10,10)
+
+KeyBox.ClearTextOnFocus = false
+
+ 
+
+local Status = Instance.new("TextLabel", Frame)
+
+Status.Size = UDim2.new(1, 0, 0, 22)
+
+Status.Position = UDim2.new(0, 0, 1, -48)
+
+Status.Text = "SOSA ON TOP BABY"
+
+Status.BackgroundTransparency = 1
+
+Status.Font = Enum.Font.Gotham
+
+Status.TextSize = 14
+
+Status.TextColor3 = Color3.fromRGB(255,80,80)
+
+ 
+
+local ConfirmBtn = Instance.new("TextButton", Frame)
+
+ConfirmBtn.Size = UDim2.new(0.9, 0, 0, 28)
+
+ConfirmBtn.Position = UDim2.new(0.05, 0, 1, -34)
+
+ConfirmBtn.BackgroundColor3 = Color3.fromRGB(5, 252, 52)
+
+ConfirmBtn.Text =  "SUBMIT"
+
+ConfirmBtn.Font = Enum.Font.GothamBold
+
+ConfirmBtn.TextSize = 20
+
+ConfirmBtn.TextColor3 = Color3.fromRGB(255,255,255)
+
+ 
+
+--==[ KEY CHECK LOGIC ]==--
+
+local keyInputted = false
+
+ConfirmBtn.MouseButton1Click:Connect(function()
+
+    currentKey = fetchKey()
+
+    if KeyBox.Text == currentKey then
+
+        keyInputted = true
+
+        ScreenGui:Destroy()
+
+    else
+
+        Status.Text = "WRONG KEY!"
+
+    end
+
+end)
+
+ 
+
+repeat wait() until keyInputted
+
+ 
+
+--==[ ILAGAY DITO ANG BUONG RAYFIELD UI CODE MO ]==--
+
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+
+   Name = "FALLEN SAINTS MAINCHEAT",
+
+   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+
+   LoadingTitle = "Made by CYO AND SOSA",
+
+   LoadingSubtitle = "by FLS",
+
+   ConfigurationSaving = {
+
+      Enabled = false,
+
+      FolderName = nil, -- Create a custom folder for your hub/game
+
+      FileName = "FLS"
+
+   },
+
+   Discord = {
+
+      Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
+
+      Invite = "nil", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
+
+      RememberJoins = false -- Set this to false to make them join the discord every time they load it up
+
+   },
+
+   KeySystem = false, -- Set this to true to use our key system
+
+   KeySettings = {
+
+      Title = "FALLEN SAINTS MAIN CHEAT",
+
+      Subtitle = "BUY MO SAMIN",
+
+      Note = "FLS ALWAYS ON TOP NIGGA", -- Use this to tell the user how to get a key
+
+      FileName = "Check Discord For Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+
+      SaveKey = false, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+
+      GrabKeyFromSite = true, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+
+      Key = {""} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+
+   }
+
+})
+
+
+local MainTab = Window:CreateTab("CITY", "Rewind")
+
+local MainSection = MainTab:CreateSection("Main")
+
+Rayfield:Notify({
+
+   Title = "FALLEN SAINTS",
+
+   Content = "Thankyou For Using FLS V1 Script",
+
+   Duration = 5,
+
+   Image = nil,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "INFINITE YIELD [FLS]",
+
+   Callback = function()
+
+    loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "MUSIC EXPO [FLS]",
+
+   Callback = function()
+
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/Roblox-HttpSpy/my-Garbage/refs/heads/main/FeMusicExploit.lua"))()
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "ESP [FLS]",
+
+   Callback = function()
+
+   -- UI Setup
+
+local ScreenGui = Instance.new("ScreenGui", game.Players.LocalPlayer:WaitForChild("PlayerGui"))
+
+ScreenGui.Name = "ESP_UI"
+
+local ToggleButton = Instance.new("TextButton", ScreenGui)
+
+ToggleButton.Size = UDim2.new(0, 100, 0, 40)
+
+ToggleButton.Position = UDim2.new(0, 10, 0, 10)
+
+ToggleButton.Text = "Toggle ESP"
+
+ToggleButton.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+
+ToggleButton.TextColor3 = Color3.new(1, 1, 1)
+
+local ShowNameButton = Instance.new("TextButton", ScreenGui)
+
+ShowNameButton.Size = UDim2.new(0, 100, 0, 40)
+
+ShowNameButton.Position = UDim2.new(0, 10, 0, 60)
+
+ShowNameButton.Text = "Show Name: ON"
+
+ShowNameButton.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+
+ShowNameButton.TextColor3 = Color3.new(1, 1, 1)
+
+local HighlightButton = Instance.new("TextButton", ScreenGui)
+
+HighlightButton.Size = UDim2.new(0, 100, 0, 40)
+
+HighlightButton.Position = UDim2.new(0, 10, 0, 110)
+
+HighlightButton.Text = "Highlight: ON"
+
+HighlightButton.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+
+HighlightButton.TextColor3 = Color3.new(1, 1, 1)
+
+local ESPEnabled = false
+
+local ShowName = true
+
+local HighlightEnabled = true
+
+-- Armazenar jogadores que estavam no servidor antes de você
+
+local playersBefore = {}
+
+-- ESP Function
+
+local function createESPBox(player, isNewPlayer)
+
+    -- Criar o quadrado para ESP
+
+    local box = Drawing.new("Square")
+
+    box.Visible = false
+
+    box.Color = isNewPlayer and Color3.new(0, 1, 0) or Color3.new(1, 0, 0)  -- Verde para novos, vermelho para antigos
+
+    box.Thickness = 2
+
+    box.Filled = false
+
+    -- Criar o nome do jogador
+
+    local nameLabel = Drawing.new("Text")
+
+    nameLabel.Visible = false
+
+    nameLabel.Text = player.Name
+
+    nameLabel.Color = Color3.new(1, 1, 1)
+
+    nameLabel.Size = 20
+
+    nameLabel.Center = true
+
+    nameLabel.Outline = true
+
+    nameLabel.OutlineColor = Color3.new(0, 0, 0)
+
+    local highlight = nil
+
+    if HighlightEnabled then
+
+        highlight = Instance.new("Highlight", player.Character)
+
+        highlight.FillColor = isNewPlayer and Color3.new(0, 1, 0) or Color3.new(1, 1, 0)  -- Verde para novos, amarelo para antigos
+
+        highlight.OutlineColor = Color3.new(1, 0, 0)
+
+        highlight.OutlineTransparency = 0.5
+
+    end
+
+    local runService = game:GetService("RunService")
+
+    local function update()
+
+        runService.RenderStepped:Connect(function()
+
+            if ESPEnabled and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+
+                local hrp = player.Character.HumanoidRootPart
+
+                local vector, onScreen = workspace.CurrentCamera:WorldToViewportPoint(hrp.Position)
+
+                if onScreen then
+
+                    local size = Vector2.new(60, 100)
+
+                    box.Size = size
+
+                    box.Position = Vector2.new(vector.X - size.X / 2, vector.Y - size.Y / 2)
+
+                    box.Visible = true
+
+                    -- Mostrar nome se habilitado
+
+                    if ShowName then
+
+                        nameLabel.Position = Vector2.new(vector.X, vector.Y - size.Y / 2 - 15)
+
+                        nameLabel.Visible = true
+
+                    else
+
+                        nameLabel.Visible = false
+
+                    end
+
+                else
+
+                    box.Visible = false
+
+                    nameLabel.Visible = false
+
+                end
+
+            else
+
+                box.Visible = false
+
+                nameLabel.Visible = false
+
+                if highlight then
+
+                    highlight.Enabled = false
+
+                end
+
+            end
+
+        end)
+
+    end
+
+    update()
+
+end
+
+-- Apply ESP to all players (Iniciando com jogadores antes de você)
+
+for _, plr in pairs(game.Players:GetPlayers()) do
+
+    if plr ~= game.Players.LocalPlayer then
+
+        local isNewPlayer = not playersBefore[plr.UserId]  -- Verifica se o jogador é novo
+
+        createESPBox(plr, isNewPlayer)
+
+        playersBefore[plr.UserId] = true  -- Marca o jogador como já presente
+
+    end
+
+end
+
+-- Update for new players
+
+game.Players.PlayerAdded:Connect(function(plr)
+
+    if plr ~= game.Players.LocalPlayer then
+
+        plr.CharacterAdded:Connect(function()
+
+            wait(1)
+
+            local isNewPlayer = not playersBefore[plr.UserId]  -- Verifica se o jogador é novo
+
+            createESPBox(plr, isNewPlayer)
+
+            playersBefore[plr.UserId] = true  -- Marca o jogador como já presente
+
+        end)
+
+    end
+
+end)
+
+-- Toggle ESP Button
+
+ToggleButton.MouseButton1Click:Connect(function()
+
+    ESPEnabled = not ESPEnabled
+
+    ToggleButton.Text = ESPEnabled and "ESP: ON" or "ESP: OFF"
+
+end)
+
+-- Show Name Button
+
+ShowNameButton.MouseButton1Click:Connect(function()
+
+    ShowName = not ShowName
+
+    ShowNameButton.Text = ShowName and "Show Name: ON" or "Show Name: OFF"
+
+end)
+
+-- Highlight Button
+
+HighlightButton.MouseButton1Click:Connect(function()
+
+    HighlightEnabled = not HighlightEnabled
+
+    HighlightButton.Text = HighlightEnabled and "Highlight: ON" or "Highlight: OFF"
+
+end)
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "LOOPBRING ALL [FLS]",
+
+   Callback = function()
+
+   local L1 = true;
+
+local L2 = game.Players.LocalPlayer.Character.HumanoidRootPart;
+
+local L3 = L2.Position - Vector3.new(5, 0, 0)
+
+game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(L_4_arg1)
+
+    if L_4_arg1 == 'f' then
+
+        L1 = not L1
+
+    end;
+
+    if L_4_arg1 == 'r' then
+
+        L2 = game.Players.LocalPlayer.Character.HumanoidRootPart;
+
+        L3 = L2.Position - Vector3.new(5, 0, 0)
+
+    end
+
+end)
+
+for L_5_forvar1, L_6_forvar2 in pairs(game.Players:GetPlayers()) do
+
+    if L_6_forvar2 == game.Players.LocalPlayer then
+
+    else
+
+        local L7 = coroutine.create(function()
+
+            game:GetService('RunService').RenderStepped:Connect(function()
+
+                local L8, L9 = pcall(function()
+
+                    local L10 = L_6_forvar2.Character;
+
+                    if L10 then
+
+                        if L10:FindFirstChild("HumanoidRootPart") then
+
+                            if L1 then
+
+                                L_6_forvar2.Backpack:ClearAllChildren()
+
+                                for L_11_forvar1, L_12_forvar2 in pairs(L10:GetChildren()) do
+
+                                    if L_12_forvar2:IsA("Tool") then
+
+                                        L_12_forvar2:Destroy()
+
+                                    end
+
+                                end;
+
+                                L10.HumanoidRootPart.CFrame = CFrame.new(L3)
+
+                            end
+
+                        end
+
+                    end
+
+                end)
+
+                if L8 then
+
+                else
+
+                    warn("Unnormal error: "..L9)
+
+                end
+
+            end)
+
+        end)
+
+        coroutine.resume(L7)
+
+    end
+
+end;
+
+-- check for updates
+
+game.Players.PlayerAdded:Connect(function(L_13_arg1)
+
+    if L_13_arg1 == game.Players.LocalPlayer then
+
+    else
+
+        local L14 = coroutine.create(function()
+
+            game:GetService('RunService').RenderStepped:Connect(function()
+
+                local L15, L16 = pcall(function()
+
+                    local L17 = L_13_arg1.Character;
+
+                    if L17 then
+
+                        if L17:FindFirstChild("HumanoidRootPart") then
+
+                            if L1 then
+
+                                L_13_arg1.Backpack:ClearAllChildren()
+
+                                for L_18_forvar1, L_19_forvar2 in pairs(L17:GetChildren()) do
+
+                                    if L_19_forvar2:IsA("Tool") then
+
+                                        L_19_forvar2:Destroy()
+
+                                    end
+
+                                end;
+
+                                L17.HumanoidRootPart.CFrame = CFrame.new(L3)
+
+                            end
+
+                        end
+
+                    end
+
+                end)
+
+                if L15 then
+
+                else
+
+                    warn("Unnormal error: "..L16)
+
+                end
+
+            end)
+
+        end)
+
+        coroutine.resume(L14)
+
+    end
+
+end)
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "BIG HEAD [FLS]",
+
+   Callback = function()
+
+   _G.HeadSize = 4 _G.Disabled = true game:GetService('RunService').RenderStepped:connect(function() if _G.Disabled then for i,v in next, game:GetService('Players'):GetPlayers() do if v.Name ~= game:GetService('Players').LocalPlayer.Name then pcall(function() v.Character.Head.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize) v.Character.Head.Transparency = 0.4 v.Character.Head.BrickColor = BrickColor.new("Red") v.Character.Head.Material = "Neon" v.Character.Head.CanCollide = false v.Character.Head.Massless = true end) end end end end)
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "AIMBOT [FLS]",
+
+   Callback = function()
+
+   --// Cache
+
+local select = select
+
+local pcall, getgenv, next, Vector2, mathclamp, type, mousemoverel = select(1, pcall, getgenv, next, Vector2.new, math.clamp, type, mousemoverel or (Input and Input.MouseMove))
+
+--// Preventing Multiple Processes
+
+pcall(function()
+
+	getgenv().Aimbot.Functions:Exit()end)
+
+--// Environment
+
+getgenv().Aimbot = {}
+
+local Environment = getgenv().Aimbot
+
+--// Services
+
+local RunService = game:GetService("RunService")
+
+local UserInputService = game:GetService("UserInputService")
+
+local TweenService = game:GetService("TweenService")
+
+local Players = game:GetService("Players")
+
+local Camera = workspace.CurrentCamera
+
+local LocalPlayer = Players.LocalPlayer
+
+--// Variables
+
+local RequiredDistance, Typing, Running, Animation, ServiceConnections = 2000, false, false, nil, {}
+
+--// Script Settings
+
+Environment.Settings = {
+
+	Enabled = true,
+
+	TeamCheck = false,
+
+	AliveCheck = true,
+
+	WallCheck = false, -- Laggy
+
+	Sensitivity = 0, -- Animation length (in seconds) before fully locking onto target
+
+	ThirdPerson = false, -- Uses mousemoverel instead of CFrame to support locking in third person (could be choppy)
+
+	ThirdPersonSensitivity = 3, -- Boundary: 0.1 - 5
+
+	TriggerKey = "MouseButton2",
+
+	Toggle = false,
+
+	LockPart = "Head" -- Body part to lock on
+
+}
+
+Environment.FOVSettings = {
+
+	Enabled = true,
+
+	Visible = true,
+
+	Amount = 90,
+
+	Color = Color3.fromRGB(255, 255, 255),
+
+	LockedColor = Color3.fromRGB(255, 70, 70),
+
+	Transparency = 0.5,
+
+	Sides = 60,
+
+	Thickness = 1,
+
+	Filled = false
+
+}
+
+Environment.FOVCircle = Drawing.new("Circle")
+
+--// Functions
+
+local function CancelLock()
+
+	Environment.Locked = nil
+
+	if Animation then Animation:Cancel() end
+
+	Environment.FOVCircle.Color = Environment.FOVSettings.Color
+
+end
+
+local function GetClosestPlayer()
+
+	if not Environment.Locked then
+
+		RequiredDistance = (Environment.FOVSettings.Enabled and Environment.FOVSettings.Amount or 2000)
+
+		for _, v in next, Players:GetPlayers() do
+
+			if v ~= LocalPlayer then
+
+				if v.Character and v.Character:FindFirstChild(Environment.Settings.LockPart) and v.Character:FindFirstChildOfClass("Humanoid") then
+
+					if Environment.Settings.TeamCheck and v.Team == LocalPlayer.Team then continue end
+
+					if Environment.Settings.AliveCheck and v.Character:FindFirstChildOfClass("Humanoid").Health <= 0 then continue end
+
+					if Environment.Settings.WallCheck and #(Camera:GetPartsObscuringTarget({v.Character[Environment.Settings.LockPart].Position}, v.Character:GetDescendants())) > 0 then continue end
+
+					local Vector, OnScreen = Camera:WorldToViewportPoint(v.Character[Environment.Settings.LockPart].Position)
+
+					local Distance = (Vector2(UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y) - Vector2(Vector.X, Vector.Y)).Magnitude
+
+					if Distance < RequiredDistance and OnScreen then
+
+						RequiredDistance = Distance
+
+						Environment.Locked = v
+
+					end
+
+				end
+
+			end
+
+		end
+
+	elseif (Vector2(UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y) - Vector2(Camera:WorldToViewportPoint(Environment.Locked.Character[Environment.Settings.LockPart].Position).X, Camera:WorldToViewportPoint(Environment.Locked.Character[Environment.Settings.LockPart].Position).Y)).Magnitude > RequiredDistance then
+
+		CancelLock()
+
+	end
+
+end
+
+--// Typing Check
+
+ServiceConnections.TypingStartedConnection = UserInputService.TextBoxFocused:Connect(function()
+
+	Typing = true
+
+end)
+
+ServiceConnections.TypingEndedConnection = UserInputService.TextBoxFocusReleased:Connect(function()
+
+	Typing = false
+
+end)
+
+--// Main
+
+local function Load()
+
+	ServiceConnections.RenderSteppedConnection = RunService.RenderStepped:Connect(function()
+
+		if Environment.FOVSettings.Enabled and Environment.Settings.Enabled then
+
+			Environment.FOVCircle.Radius = Environment.FOVSettings.Amount
+
+			Environment.FOVCircle.Thickness = Environment.FOVSettings.Thickness
+
+			Environment.FOVCircle.Filled = Environment.FOVSettings.Filled
+
+			Environment.FOVCircle.NumSides = Environment.FOVSettings.Sides
+
+			Environment.FOVCircle.NumSides = Environment.FOVSettings.Sides
+
+			Environment.FOVCircle.Color = Environment.FOVSettings.Color
+
+			Environment.FOVCircle.Transparency = Environment.FOVSettings.Transparency
+
+			Environment.FOVCircle.Visible = Environment.FOVSettings.Visible
+
+			Env1429695248832921651UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y)
+
+		else
+
+			Environment.FOVCircle.Visible = false
+
+		end
+
+		if Running and Environment.Settings.Enabled then
+
+			GetClosestPlayer()if Environment.Locked
+
+then
+
+				if Environment.Settings.ThirdPerson then
+
+					Environment.Settings.ThirdPersonSensitivity = mathclamp(Environment.Settings.ThirdPersonSensitivity, 0.1, 5)
+
+					local Vector = Camera:WorldToViewportPoint(Environment.Locked.Character[Environment.Settings.LockPart].Position)
+
+					mousemoverel((Vector.X - UserInputService:GetMouseLocation().X) * Environment.Settings.ThirdPersonSensitivity, (Vector.Y - UserInputService:GetMouseLocation().Y) * Environment.Settings.ThirdPersonSensitivity)
+
+				else
+
+					if Environment.Settings.Sensitivity > 0 then
+
+						Animation = TweenService:Create(Camera, TweenInfo.new(Environment.Settings.Sensitivity, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {CFrame = CFrame.new(Camera.CFrame.Position, Environment.Locked.Character[Environment.Settings.LockPart].Position)})
+
+						Animation:Play()
+
+					else
+
+						Camera.CFrame = CFrame.new(Camera.CFrame.Position, Environment.Locked.Character[Environment.Settings.LockPart].Position)
+
+					end
+
+				end
+
+			Environment.FOVCircle.Color = Environment.FOVSettings.LockedColor
+
+			end
+
+		end
+
+	end)
+
+	ServiceConnections.InputBeganConnection = UserInputService.InputBegan:Connect(function(Input)
+
+		if not Typing then
+
+			pcall(function()
+
+				if Input.KeyCode == Enum.KeyCode[Environment.Settings.TriggerKey] then
+
+					if Environment.Settings.Toggle then
+
+						Running = not Running
+
+if not Running then
+
+							CancelLock()
+
+						end
+
+					else
+
+						Running = true
+
+					end
+
+				end
+
+			end)
+
+			pcall(function()
+
+				if Input.UserInputType == Enum.UserInputType[Environment.Settings.TriggerKey] then
+
+					if Environment.Settings.Toggle then
+
+						Running = not Running
+
+						if not Running then
+
+							CancelLock()
+
+						end
+
+					else
+
+						Running = true
+
+					end
+
+				end
+
+			end)
+
+		end
+
+	end)
+
+	ServiceConnections.InputEndedConnection = UserInputService.InputEnded:Connect(function(Input)
+
+		if not Typing then
+
+			if not Environment.Settings.Toggle then
+
+				pcall(function()
+
+					if Input.KeyCode == Enum.KeyCode[Environment.Settings.TriggerKey] then
+
+						Running = false; CancelLock()
+
+					end
+
+				end)
+
+				pcall(function()
+
+					if Input.UserInputType == Enum.UserInputType[Environment.Settings.TriggerKey] then
+
+						Running = false; CancelLock()
+
+					end
+
+				end)
+
+			end
+
+		end
+
+	end)
+
+end
+
+--// Functions
+
+Environment.Functions = {}
+
+function Environment.Functions:Exit()
+
+	for _, v in next, ServiceConnections do
+
+		v:Disconnect()
+
+	end
+
+	if Environment.FOVCircle.Remove then Environment.FOVCircle:Remove() end
+
+	getgenv().Aimbot.Functions = nil
+
+	getgenv().Aimbot = nil
+
+	
+
+	Load = nil; GetClosestPlayer = nil; CancelLock = nil
+
+end
+
+function Environment.Functions:Restart()
+
+	for _, v in next, ServiceConnections do
+
+		v:Disconnect()
+
+	end
+
+	Load()
+
+end
+
+function Environment.Functions:ResetSettings()
+
+	Environment.Settings = {
+
+		Enabled = true,
+
+		TeamCheck = false,
+
+		AliveCheck = true,
+
+		WallCheck = false,
+
+		Sensitivity = 0, -- Animation length (in seconds) before fully locking onto target
+
+		ThirdPerson = false, -- Uses mousemoverel instead of CFrame to support locking in third person (could be choppy)
+
+		ThirdPersonSensitivity = 3, -- Boundary: 0.1 - 5
+
+		TriggerKey = "MouseButton2",
+
+		Toggle = false,
+
+		LockPart = "Head" -- Body part to lock on
+
+	}
+
+	Environment.FOVSettings = {
+
+		Enabled = true,
+
+		Visible = true,
+
+		Amount = 90,
+
+		Color = Color3.fromRGB(255, 255, 255),
+
+		LockedColor = Color3.fromRGB(255, 70, 70),
+
+		Transparency = 0.5,
+
+		Sides = 60,
+
+		Thickness = 1,
+
+		Filled = false
+
+	}
+
+end
+
+--// Load
+
+Load()
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "FADED [FLS]",
+
+   Callback = function()
+
+   _G.Toggles = "Y" -- You can put any keybind
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/NighterEpic/Faded-Grid/main/YesEpic", true))()
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "FLING ALL [FLS]",
+
+   Callback = function()
+
+   game:GetService("StarterGui"):SetCore("SendNotification",{
+
+    Title = "Script Executed";
+
+    Text = "Fling All";
+
+    Duration = 6;
+
+})
+
+ 
+
+local Targets = {"All"} -- "All", "Target Name", "arian_was_here"
+
+ 
+
+local Players = game:GetService("Players")
+
+local Player = Players.LocalPlayer
+
+ 
+
+local AllBool = false
+
+ 
+
+local GetPlayer = function(Name)
+
+    Name = Name:lower()
+
+    if Name == "all" or Name == "others" then
+
+        AllBool = true
+
+        return
+
+    elseif Name == "random" then
+
+        local GetPlayers = Players:GetPlayers()
+
+        if table.find(GetPlayers,Player) then table.remove(GetPlayers,table.find(GetPlayers,Player)) end
+
+        return GetPlayers[math.random(#GetPlayers)]
+
+    elseif Name ~= "random" and Name ~= "all" and Name ~= "others" then
+
+        for _,x in next, Players:GetPlayers() do
+
+            if x ~= Player then
+
+                if x.Name:lower():match("^"..Name) then
+
+                    return x;
+
+                elseif x.DisplayName:lower():match("^"..Name) then
+
+                    return x;
+
+                end
+
+            end
+
+        end
+
+    else
+
+        return
+
+    end
+
+end
+
+ 
+
+local Message = function(_Title, _Text, Time)
+
+    game:GetService("StarterGui"):SetCore("SendNotification", {Title = _Title, Text = _Text, Duration = Time})
+
+end
+
+ 
+
+local SkidFling = function(TargetPlayer)
+
+    local Character = Player.Character
+
+    local Humanoid = Character and Character:FindFirstChildOfClass("Humanoid")
+
+    local RootPart = Humanoid and Humanoid.RootPart
+
+ 
+
+    local TCharacter = TargetPlayer.Character
+
+    local THumanoid
+
+    local TRootPart
+
+    local THead
+
+    local Accessory
+
+    local Handle
+
+ 
+
+    if TCharacter:FindFirstChildOfClass("Humanoid") then
+
+        THumanoid = TCharacter:FindFirstChildOfClass("Humanoid")
+
+    end
+
+    if THumanoid and THumanoid.RootPart then
+
+        TRootPart = THumanoid.RootPart
+
+    end
+
+    if TCharacter:FindFirstChild("Head") then
+
+        THead = TCharacter.Head
+
+    end
+
+    if TCharacter:FindFirstChildOfClass("Accessory") then
+
+        Accessory = TCharacter:FindFirstChildOfClass("Accessory")
+
+    end
+
+    if Accessoy and Accessory:FindFirstChild("Handle") then
+
+        Handle = Accessory.Handle
+
+    end
+
+ 
+
+    if Character and Humanoid and RootPart then
+
+        if RootPart.Velocity.Magnitude < 50 then
+
+            getgenv().OldPos = RootPart.CFrame
+
+        end
+
+        if THumanoid and THumanoid.Sit and not AllBool then
+
+            return Message("Error Occurred", "Targeting is sitting", 5) -- u can remove dis part if u want lol
+
+        end
+
+        if THead then
+
+            workspace.CurrentCamera.CameraSubject = THead
+
+        elseif not THead and Handle then
+
+            workspace.CurrentCamera.CameraSubject = Handle
+
+        elseif THumanoid and TRootPart then
+
+            workspace.CurrentCamera.CameraSubject = THumanoid
+
+        end
+
+        if not TCharacter:FindFirstChildWhichIsA("BasePart") then
+
+            return
+
+        end
+
+ 
+
+        local FPos = function(BasePart, Pos, Ang)
+
+            RootPart.CFrame = CFrame.new(BasePart.Position) * Pos * Ang
+
+            Character:SetPrimaryPartCFrame(CFrame.new(BasePart.Position) * Pos * Ang)
+
+            RootPart.Velocity = Vector3.new(9e7, 9e7 * 10, 9e7)
+
+            RootPart.RotVelocity = Vector3.new(9e8, 9e8, 9e8)
+
+        end
+
+ 
+
+        local SFBasePart = function(BasePart)
+
+            local TimeToWait = 2
+
+            local Time = tick()
+
+            local Angle = 0
+
+ 
+
+            repeat
+
+                if RootPart and THumanoid then
+
+                    if BasePart.Velocity.Magnitude < 50 then
+
+                        Angle = Angle + 100
+
+ 
+
+                        FPos(BasePart, CFrame.new(0, 1.5, 0) + THumanoid.MoveDirection * BasePart.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(Angle),0 ,0))
+
+                        task.wait()
+
+ 
+
+                        FPos(BasePart, CFrame.new(0, -1.5, 0) + THumanoid.MoveDirection * BasePart.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(Angle), 0, 0))
+
+                        task.wait()
+
+ 
+
+                        FPos(BasePart, CFrame.new(2.25, 1.5, -2.25) + THumanoid.MoveDirection * BasePart.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(Angle), 0, 0))
+
+                        task.wait()
+
+ 
+
+                        FPos(BasePart, CFrame.new(-2.25, -1.5, 2.25) + THumanoid.MoveDirection * BasePart.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(Angle), 0, 0))
+
+                        task.wait()
+
+ 
+
+                        FPos(BasePart, CFrame.new(0, 1.5, 0) + THumanoid.MoveDirection,CFrame.Angles(math.rad(Angle), 0, 0))
+
+                        task.wait()
+
+ 
+
+                        FPos(BasePart, CFrame.new(0, -1.5, 0) + THumanoid.MoveDirection,CFrame.Angles(math.rad(Angle), 0, 0))
+
+                        task.wait()
+
+                    else
+
+                        FPos(BasePart, CFrame.new(0, 1.5, THumanoid.WalkSpeed), CFrame.Angles(math.rad(90), 0, 0))
+
+                        task.wait()
+
+ 
+
+                        FPos(BasePart, CFrame.new(0, -1.5, -THumanoid.WalkSpeed), CFrame.Angles(0, 0, 0))
+
+                        task.wait()
+
+ 
+
+                        FPos(BasePart, CFrame.new(0, 1.5, THumanoid.WalkSpeed), CFrame.Angles(math.rad(90), 0, 0))
+
+                        task.wait()
+
+ 
+
+                        FPos(BasePart, CFrame.new(0, 1.5, TRootPart.Velocity.Magnitude / 1.25), CFrame.Angles(math.rad(90), 0, 0))
+
+                        task.wait()
+
+ 
+
+                        FPos(BasePart, CFrame.new(0, -1.5, -TRootPart.Velocity.Magnitude / 1.25), CFrame.Angles(0, 0, 0))
+
+                        task.wait()
+
+ 
+
+                        FPos(BasePart, CFrame.new(0, 1.5, TRootPart.Velocity.Magnitude / 1.25), CFrame.Angles(math.rad(90), 0, 0))
+
+                        task.wait()
+
+ 
+
+                        FPos(BasePart, CFrame.new(0, -1.5, 0), CFrame.Angles(math.rad(90), 0, 0))
+
+                        task.wait()
+
+ 
+
+                        FPos(BasePart, CFrame.new(0, -1.5, 0), CFrame.Angles(0, 0, 0))
+
+                        task.wait()
+
+ 
+
+                        FPos(BasePart, CFrame.new(0, -1.5 ,0), CFrame.Angles(math.rad(-90), 0, 0))
+
+                        task.wait()
+
+ 
+
+                        FPos(BasePart, CFrame.new(0, -1.5, 0), CFrame.Angles(0, 0, 0))
+
+                        task.wait()
+
+                    end
+
+                else
+
+                    break
+
+                end
+
+            until BasePart.Velocity.Magnitude > 500 or BasePart.Parent ~= TargetPlayer.Character or TargetPlayer.Parent ~= Players or not TargetPlayer.Character == TCharacter or THumanoid.Sit or Humanoid.Health <= 0 or tick() > Time + TimeToWait
+
+        end
+
+ 
+
+        workspace.FallenPartsDestroyHeight = 0/0
+
+ 
+
+        local BV = Instance.new("BodyVelocity")
+
+        BV.Name = "EpixVel"
+
+        BV.Parent = RootPart
+
+        BV.Velocity = Vector3.new(9e8, 9e8, 9e8)
+
+        BV.MaxForce = Vector3.new(1/0, 1/0, 1/0)
+
+ 
+
+        Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+
+ 
+
+        if TRootPart and THead then
+
+            if (TRootPart.CFrame.p - THead.CFrame.p).Magnitude > 5 then
+
+                SFBasePart(THead)
+
+            else
+
+                SFBasePart(TRootPart)
+
+            end
+
+        elseif TRootPart and not THead then
+
+            SFBasePart(TRootPart)
+
+        elseif not TRootPart and THead then
+
+            SFBasePart(THead)
+
+        elseif not TRootPart and not THead and Accessory and Handle then
+
+            SFBasePart(Handle)
+
+        else
+
+            return Message("Error Occurred", "Target is missing everything", 5)
+
+        end
+
+ 
+
+        BV:Destroy()
+
+        Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
+
+        workspace.CurrentCamera.CameraSubject = Humanoid
+
+ 
+
+        repeat
+
+            RootPart.CFrame = getgenv().OldPos * CFrame.new(0, .5, 0)
+
+            Character:SetPrimaryPartCFrame(getgenv().OldPos * CFrame.new(0, .5, 0))
+
+            Humanoid:ChangeState("GettingUp")
+
+            table.foreach(Character:GetChildren(), function(_, x)
+
+                if x:IsA("BasePart") then
+
+                    x.Velocity, x.RotVelocity = Vector3.new(), Vector3.new()
+
+                end
+
+            end)
+
+            task.wait()
+
+        until (RootPart.Position - getgenv().OldPos.p).Magnitude < 25
+
+        workspace.FallenPartsDestroyHeight = getgenv().FPDH
+
+    else
+
+        return Message("Error Ocurrido", "El Script A Fallado", 5)
+
+    end
+
+end
+
+ 
+
+if not Welcome then Message("By SOSA x", "", 6) end
+
+getgenv().Welcome = true
+
+if Targets[1] then for _,x in next, Targets do GetPlayer(x) end else return end
+
+ 
+
+if AllBool then
+
+    for _,x in next, Players:GetPlayers() do
+
+        SkidFling(x)
+
+    end
+
+end
+
+ 
+
+for _,x in next, Targets do
+
+    if GetPlayer(x) and GetPlayer(x) ~= Player then
+
+        if GetPlayer(x).UserId ~= 2924145477 then
+
+            local TPlayer = GetPlayer(x)
+
+            if TPlayer then
+
+                SkidFling(TPlayer)
+
+            end
+
+        else
+
+            Message("ERROR AL ASER FLING", "", 8)
+
+        end
+
+    elseif not GetPlayer(x) and not AllBool then
+
+        Message("ERROR OCURRIDO", "NO SE LE ISO FLING", 8)
+
+    end
+
+end
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "TROLL [FLS]",
+
+   Callback = function()
+
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/TheqopThe/robax/refs/heads/main/jumpscare.lua"))()
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "HITBOX EXTENDER [FLS]",
+
+   Callback = function()
+
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/LisSploit/HitBoxExtender/main/Universal",true))()
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "BACK SCANNER [FLS]",
+
+   Callback = function()
+
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Its-LALOL/LALOL-Hub/main/Backdoor-Scanner/script'))()
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "SET SKY VISUAL [FLS]",
+
+   Callback = function()
+
+loadstring(game:HttpGet("https://pastebin.com/raw/6JSLptY3"))()
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "DECAL SPAM VISUAL [FLS]",
+
+   Callback = function()
+
+loadstring(game:HttpGet("https://pastebin.com/raw/SQg7gBB5"))()
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = " FLING [FLS]",
+
+   Callback = function()
+
+loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-fe-fling-gui-8018"))()
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = " V1 Menu [FLS]",
+
+   Callback = function()
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/MiRw3b/c00lgui-v3rx/main/c00lguiv3rx.lua"))()
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = " V2 Menu [FLS]",
+
+   Callback = function()
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/FE%20Trolling%20GUI.luau"))()
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = " Jumpscare [FLS]",
+
+   Callback = function()
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheqopThe/robax/refs/heads/main/jumpscare.lua"))()
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = " WICKED [FLS]",
+
+   Callback = function()
+
+loadstring(game:HttpGet("https://pastebin.com/raw/GY1wfJRZ"))()
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = " TOUCH FLING [FLS]",
+
+   Callback = function()
+
+loadstring(game:HttpGet("https://pastebin.com/raw/LgZwZ7ZB",true))()
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = " Jerk [FLS]",
+
+   Callback = function()
+
+loadstring(game:HttpGet("https://pastebin.com/raw/FWwdST5Y"))()
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "Buhay Sa cliv FLS Panel [FLS]",
+
+   Callback = function()
+
+loadstring(game:HttpGet("https://pastebin.com/raw/a409ysyR"))()
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "Bagong Baryo FLS Panel [FLS]",
+
+   Callback = function()
+
+loadstring(game:HttpGet("https://pastebin.com/raw/iUenN9MR"))()
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "1688 V2 [FLS]",
+
+   Callback = function()
+
+loadstring(game:HttpGet("https://pastebin.com/raw/xTH52yZm"))()
+
+  end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "1688 V3 [FLS]",
+
+   Callback = function()
+
+loadstring(game:HttpGet("https://pastebin.com/raw/79jgH6nf"))()
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "Taong goma v5 [FLS]",
+
+   Callback = function()
+
+loadstring(game:HttpGet("https://pastebin.com/raw/NjdKUD2G"))()
+
+   end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "Berserk v1 [FLS]",
+
+   Callback = function()
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/BlackSource-a11y/Code/refs/heads/main/Mize"))()
+
+  end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "Dupe FLS Panel [FLS]",
+
+   Callback = function()
+
+loadstring(game:HttpGet("https://pastebin.com/raw/QtAHrCE4"))()
+
+  end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "Remote Spy [FLS]",
+
+   Callback = function()
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/RS/main/SimpleSpyMobile"))()
+
+  end,
+
+})
+
+local Button = MainTab:CreateButton({
+
+   Name = "Bring Part [FLS]",
+
+   Callback = function()
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/GoofyBlox/GoofyZ/refs/heads/main/Best/Vortex.lua", true))() 
+
+  end,
+
+})
+
+local SPAWNGUNTab = Window:CreateTab("FLS DUPE CHEAT", "Package")
+local SPAWNGUNSection = SPAWNGUNTab:CreateSection("SPAWN GUN")
+
+local Button = SPAWNGUNTab:CreateButton({
+Name = "GUN SHOP [FLS]",
+Callback = function()
+      loadstring(game:HttpGet("https://pastebin.com/raw/gVBQdpb8"))()
+   end,
+})
+
+local Button = SPAWNGUNTab:CreateButton({
+Name = "BM STORAGE [FLS]",
+Callback = function()
+      loadstring(game:HttpGet("https://pastebin.com/raw/Yat5Xq4E"))()
+end,
+})
+
+local Button = SPAWNGUNTab:CreateButton({
+Name = "NEXOPOLIS [FLS]",
+Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/cAhifpbE"))()
+end,
+})
+
+local Button = SPAWNGUNTab:CreateButton({
+Name = "KALYE ONSE [FLS]",
+Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/A8nN0x18"))()
+end,
+})
+
+local Button = SPAWNGUNTab:CreateButton({
+Name = "PARAISO [FLS]",
+Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/HXqG9Gaq"))()
+end,
+})
+
+local Button = SPAWNGUNTab:CreateButton({
+Name = "PURCHASE WEAPON [FLS]",
+Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/uRF2d6Z4"))()
+end,
+})
+
+local Button = SPAWNGUNTab:CreateButton({
+Name = "AUTO JOB BOX [FLS]",
+Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/kw2Y1YfC"))()
+end,
+})
+
+local WTab = Window:CreateTab("PVP SCRIPT", "Settings")
+
+local Section = WTab:CreateSection("Side Script")
+
+local Button = WTab:CreateButton({
+
+   Name = "FANTASMA PVP [FLS]",
+
+   Callback = function()
+
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/usbkillerx/EZhacker/refs/heads/main/EZhack"))()
+
+   end,
+})
+
+  end,
+})
