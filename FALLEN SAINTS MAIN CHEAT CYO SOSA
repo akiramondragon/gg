@@ -261,7 +261,7 @@ end,
 })
 
 local Button = MAINTab:CreateButton({
-Name = "HITBOX EXPANDER [DMR]",
+Name = "HITBOX EXPANDER [FLS]",
 Callback = function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/ezsee/Hitbox-Expander123/refs/heads/main/waaaaaat"))()
 end,
