@@ -23,7 +23,7 @@ Instance.new("UICorner",frame).CornerRadius = UDim.new(0,10)
 local skullBg = Instance.new("ImageLabel")
 skullBg.Size = UDim2.new(1,0,1,0)
 skullBg.BackgroundTransparency = 1
-skullBg.Image = "rbxassetid://87028580440151"
+skullBg.Image = "rbxassetid://115033661776732"
 skullBg.ScaleType = Enum.ScaleType.Crop
 skullBg.ZIndex = 0
 skullBg.Parent = frame
@@ -106,7 +106,7 @@ btn.MouseButton1Click:Connect(function()
         logo.Position = UDim2.new(0.5,0,0.5,0)
         logo.Size = UDim2.new(0.6,0,0.6,0)
         logo.BackgroundTransparency = 1
-        logo.Image = "rbxassetid://87028580440151"
+        logo.Image = "rbxassetid://115033661776732"
         logo.ImageTransparency = 1
         logo.Parent = introGui
 
