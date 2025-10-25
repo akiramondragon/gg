@@ -225,34 +225,6 @@ end,
 })
 
 local Button = MAINTab:CreateButton({
-Name = "TROLL [FLS]",
-Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/TheqopThe/robax/refs/heads/main/jumpscare.lua"))()
-end,
-})
-
-local Button = MAINTab:CreateButton({
-Name = "Backdoor Scanner [FLS]",
-Callback = function()
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Its-LALOL/LALOL-Hub/main/Backdoor-Scanner/script'))()
-end,
-})
-
-local Button = MAINTab:CreateButton({
-Name = "V1 Menu [FLS]",
-Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/MiRw3b/c00lgui-v3rx/main/c00lguiv3rx.lua"))()
-end,
-})
-
-local Button = MAINTab:CreateButton({
-Name = "V2 Menu [FLS]",
-Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/FE%20Trolling%20GUI.luau"))()
-end,
-})
-
-local Button = MAINTab:CreateButton({
 Name = "BIG HEAD [FLS]",
 Callback = function()
 _G.HeadSize = 4 _G.Disabled = true game:GetService('RunService').RenderStepped:connect(function() if _G.Disabled then for i,v in next, game:GetService('Players'):GetPlayers() do if v.Name ~= game:GetService('Players').LocalPlayer.Name then pcall(function() v.Character.Head.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize) v.Character.Head.Transparency = 0.4 v.Character.Head.BrickColor = BrickColor.new("Red") v.Character.Head.Material = "Neon" v.Character.Head.CanCollide = false v.Character.Head.Massless = true end) end end end end)
