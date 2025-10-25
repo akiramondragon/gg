@@ -225,6 +225,190 @@ end,
 })
 
 local Button = MAINTab:CreateButton({
+Name = "TROLL [FLS]",
+Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TheqopThe/robax/refs/heads/main/jumpscare.lua"))()
+end,
+})
+
+local Button = MAINTab:CreateButton({
+Name = "Backdoor Scanner [FLS]",
+Callback = function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Its-LALOL/LALOL-Hub/main/Backdoor-Scanner/script'))()
+end,
+})
+
+local Button = MAINTab:CreateButton({
+Name = "V1 Menu [FLS]",
+Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/MiRw3b/c00lgui-v3rx/main/c00lguiv3rx.lua"))()
+end,
+})
+
+local Button = MAINTab:CreateButton({
+Name = "V2 Menu [FLS]",
+Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/FE%20Trolling%20GUI.luau"))()
+end,
+})
+
+local Button = MAINTab:CreateButton({
+Name = "Aim Assist Fls [FLS]",
+Callback = function()
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+local Camera = workspace.CurrentCamera
+local UserInputService = game:GetService("UserInputService")
+
+local aimAssistEnabled = false
+local smoothness = 0.15 
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if not gameProcessed and input.KeyCode == Enum.KeyCode.Q then
+        aimAssistEnabled = not aimAssistEnabled
+        print("Aim Assist:", aimAssistEnabled and "ON" or "OFF")
+    end
+end)
+
+local function getClosestTarget()
+    local closest = nil
+    local shortestDistance = math.huge
+
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("Head") then
+            local headPos = player.Character.Head.Position
+            local screenPos, onScreen = Camera:WorldToViewportPoint(headPos)
+
+            if onScreen then
+                local distance = (Vector2.new(screenPos.X, screenPos.Y) - UserInputService:GetMouseLocation()).Magnitude
+                if distance < shortestDistance then
+shortestDistance = distance
+                    closest = player
+                end
+            end
+        end
+    end
+
+    return closest
+end
+
+RunService.RenderStepped:Connect(function()
+    if aimAssistEnabled then
+        local target = getClosestTarget()
+        if target and target.Character
+and 
+target.Character:FindFirstChild("Head") then
+            local headPos = target.Character.Head.Position
+            local camPos = Camera.CFrame.Position
+            local direction = (headPos - camPos).Unit
+            local newCFrame = CFrame.new(camPos, camPos + direction)
+
+            Camera.CFrame = Camera.CFrame:Lerp(newCFrame, smoothness)
+        end
+    end
+end)
+
+-- Welcome GUI creation
+local function createWelcomeGui()
+    -- Create the ScreenGui
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "WelcomeGui"
+    screenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+
+    local background = Instance.new("Frame")
+    background.Size = UDim2.new(0, 450, 0, 200)
+    background.Position = UDim2.new(0.5, -225, 0.35, -100)
+    background.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    background.BackgroundTransparency = 0.6
+    background.BorderSizePixel = 0
+    background.Parent = screenGui
+
+    -- Add gradient to the background
+    local gradient = Instance.new("UIGradient")
+    gradient.Color = ColorSequence.new(Color3.fromRGB(0, 255, 0), Color3.fromRGB(0, 128, 0))
+    gradient.Rotation = 45
+    gradient.Parent = background
+
+    local headerLabel = Instance.new("TextLabel")
+    headerLabel.Text = "Welcome, @" .. LocalPlayer.Name
+    headerLabel.Font = Enum.Font.SourceSansBold
+    headerLabel.TextSize = 24
+    headerLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    headerLabel.BackgroundTransparency = 1
+    headerLabel.Position = UDim2.new(0.5, -150, 0.1, 0)
+    headerLabel.Size = UDim2.new(0, 300, 0, 30)
+    headerLabel.TextXAlignment = Enum.TextXAlignment.Center
+    headerLabel.TextYAlignment = Enum.TextYAlignment.Center
+    headerLabel.TextStrokeTransparency = 0.8
+    headerLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+    headerLabel.Parent = background
+
+    local subTitleLabel = Instance.new("TextLabel")
+    subTitleLabel.Text = "Aim Assist for FALLEN SAINTS"
+    subTitleLabel.Font = Enum.Font.SourceSans
+    subTitleLabel.TextSize = 20
+    subTitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    subTitleLabel.BackgroundTransparency = 1
+    subTitleLabel.Position = UDim2.new(0.5, -150, 0.3, 0)
+    subTitleLabel.Size = UDim2.new(0, 300, 0, 30)
+    subTitleLabel.TextXAlignment = Enum.TextXAlignment.Center
+    subTitleLabel.TextYAlignment = Enum.TextYAlignment.Center
+    
+subTitleLabel.TextStrokeTransparency = 0.8
+    subTitleLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+    subTitleLabel.Parent = background
+
+    local creatorLabel = Instance.new("TextLabel")
+    creatorLabel.Text = "Made by Cyo"
+    creatorLabel.Font = Enum.Font.SourceSansItalic
+    creatorLabel.TextSize = 18
+    creatorLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    creatorLabel.BackgroundTransparency = 1
+    creatorLabel.Position = UDim2.new(0.5, -150, 0.5, 0)
+    creatorLabel.Size = UDim2.new(0, 300, 0, 30)
+    creatorLabel.TextXAlignment = Enum.TextXAlignment.Center
+    creatorLabel.TextYAlignment = Enum.TextYAlignment.Center
+    creatorLabel.TextStrokeTransparency = 0.8
+    creatorLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+    creatorLabel.Parent = background
+
+    local footerLabel =
+Instance.new("TextLabel")
+    footerLabel.Text = "Press Q to toggle Aim Assist"
+    footerLabel.Font = Enum.Font.SourceSans
+    footerLabel.TextSize = 16
+    footerLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    footerLabel.BackgroundTransparency = 1
+    footerLabel.Position = UDim2.new(0.5, -150, 0.7, 0)
+    footerLabel.Size = UDim2.new(0, 300, 0, 30)
+    footerLabel.TextXAlignment = Enum.TextXAlignment.Center
+    footerLabel.TextYAlignment = Enum.TextYAlignment.Center
+    footerLabel.TextStrokeTransparency = 0.8
+    footerLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+    footerLabel.Parent = background
+
+    local function animateLabels()
+        for _, label in pairs(background:GetChildren()) do
+            if label:IsA("TextLabel") then
+                local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, -1, true)
+                local goal = { Position = UDim2.new(0.5, -150, label.Position.Y.Scale + 0.05, 0) }
+                game:GetService("TweenService"):Create(label, tweenInfo, goal):Play()
+            end
+        end
+    end
+
+    animateLabels()
+
+    wait(5)
+    screenGui:Destroy()
+end
+
+createWelcomeGui()
+end,
+})
+
+local Button = MAINTab:CreateButton({
 Name = "BIG HEAD [FLS]",
 Callback = function()
 _G.HeadSize = 4 _G.Disabled = true game:GetService('RunService').RenderStepped:connect(function() if _G.Disabled then for i,v in next, game:GetService('Players'):GetPlayers() do if v.Name ~= game:GetService('Players').LocalPlayer.Name then pcall(function() v.Character.Head.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize) v.Character.Head.Transparency = 0.4 v.Character.Head.BrickColor = BrickColor.new("Red") v.Character.Head.Material = "Neon" v.Character.Head.CanCollide = false v.Character.Head.Massless = true end) end end end end)
